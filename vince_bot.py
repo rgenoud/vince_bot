@@ -30,9 +30,11 @@ class MUCJabberBot(JabberBot):
         # answer only direct messages or not?
         self.only_direct = kwargs.get('only_direct', False)
         self.nickname = kwargs.get('nickname', 'bob')
+        self.rnd_max = kwargs.get('rnd_max', 25)
         try:
             del kwargs['only_direct']
             del kwargs['nickname']
+            del kwargs['rnd_max']
         except KeyError:
             pass
 
@@ -46,13 +48,14 @@ class MUCJabberBot(JabberBot):
 
         random.seed()
         self.msg_count = 0
-        self.random = random.randint(1, 100)
+        self.random = random.randint(1, self.rnd_max)
         self.ok_str = ["c'est pas faux", "ok", "c'est pas con", "j'suis pour", "moi aussi !", "kler.", "grav'", "+1", "je bois les mots à tes lèvres tel cendrillon la sève au gland du prince charmant" ]
         self.nok_str = ["j'peux pas te laisser dire ça", "FOUTAISES !", "mais c'est n'importe quoi !!!", "tu dis que d'la merde toi !", "sans moi", "weekly...", "peux pas, j'ai poney"]
         self.insult_str = ["oh putain mais ta gueule !", "salope, salope, salope !", "ducon !", "et dans l'cul la balayette !", "t'es vraiment trop con toi !", "RTFM !"]
 	self.other_str = [ "pause !", "choub:!!!!", "mais qu'est-ce qu'on fout là ?", "j'suis putain de las !", "on va au resto ?", "sérieux ?", "la loose...", "rheuuuuuuuuuuuu", "et ben on est pas rendu avec ça !"]
         self.direct_str = [ "ben chais pas", "parles-moi pas toi !", "kestuveux ?!", "vas-y lache moi", "putain, j'dormais...", "pffff ! mais qu'est-ce j'en sais moi ?!" ]
         self.choub_str = ["choub: !!!!!!!", "choub: !$%#+@", "choub: bordel !" ]
+        self.procedures_str = ["putain, mais on chie sur les procedures là !!!", "pffffff !!!", "ok, mais on timeout à 30 alors !!!" ]
         self.all_str = self.ok_str + self.nok_str + self.insult_str + self.other_str
 
     def callback_message(self, conn, mess):
@@ -73,6 +76,11 @@ class MUCJabberBot(JabberBot):
                 self.send_simple_reply(mess, random.choice(self.choub_str));
                 return
 
+            if re.search("^2s$", message, re.IGNORECASE):
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, random.choice(self.procedures_str));
+                return
+
             if re.search("^%s:? " % self.nickname, message, re.IGNORECASE):
                 # someone talks to me...
                 time.sleep(3*random.random())
@@ -82,7 +90,7 @@ class MUCJabberBot(JabberBot):
             self.msg_count += 1
             if self.msg_count >= self.random:
                 self.msg_count = 0
-                self.random = random.randint(1, 100)
+                self.random = random.randint(1, self.rnd_max)
                 time.sleep(3*random.random())
                 self.send_simple_reply(mess,random.choice(self.all_str))
                 return
@@ -161,6 +169,6 @@ if __name__ == '__main__':
         server = '192.168.1.1'
         port = 5222
 
-    mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname)
+    mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname, rnd_max=25)
     mucbot.muc_join_room(chatroom, nickname)
     mucbot.serve_forever()
