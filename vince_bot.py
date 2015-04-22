@@ -29,8 +29,10 @@ class MUCJabberBot(JabberBot):
 
         # answer only direct messages or not?
         self.only_direct = kwargs.get('only_direct', False)
+        self.nickname = kwargs.get('nickname', 'bob')
         try:
             del kwargs['only_direct']
+            del kwargs['nickname']
         except KeyError:
             pass
 
@@ -42,6 +44,17 @@ class MUCJabberBot(JabberBot):
         self.direct_message_re = re.compile('^%s(@%s)?[^\w]? ' \
                 % (user, domain))
 
+        random.seed()
+        self.msg_count = 0
+        self.random = random.randint(1, 100)
+        self.ok_str = ["c'est pas faux", "ok", "c'est pas con", "j'suis pour", "moi aussi !", "kler.", "grav'", "+1", "je bois les mots à tes lèvres tel cendrillon la sève au gland du prince charmant" ]
+        self.nok_str = ["j'peux pas te laisser dire ça", "FOUTAISES !", "mais c'est n'importe quoi !!!", "tu dis que d'la merde toi !", "sans moi", "weekly...", "peux pas, j'ai poney"]
+        self.insult_str = ["oh putain mais ta gueule !", "salope, salope, salope !", "ducon !", "et dans l'cul la balayette !", "t'es vraiment trop con toi !", "RTFM !"]
+	self.other_str = [ "pause !", "choub:!!!!", "mais qu'est-ce qu'on fout là ?", "j'suis putain de las !", "on va au resto ?", "sérieux ?", "la loose...", "rheuuuuuuuuuuuu", "et ben on est pas rendu avec ça !"]
+        self.direct_str = [ "ben chais pas", "parles-moi pas toi !", "kestuveux ?!", "vas-y lache moi", "putain, j'dormais...", "pffff ! mais qu'est-ce j'en sais moi ?!" ]
+        self.choub_str = ["choub: !!!!!!!", "choub: !$%#+@", "choub: bordel !" ]
+        self.all_str = self.ok_str + self.nok_str + self.insult_str + self.other_str
+
     def callback_message(self, conn, mess):
         ''' Changes the behaviour of the JabberBot in order to allow
         it to answer direct messages. This is used often when it is
@@ -51,18 +64,27 @@ class MUCJabberBot(JabberBot):
         if not message:
             return
 
-        bye_str = ["ciao", "tcho", "a+", "à plus dans l'bus", "bye", "salut", "à c'tantot dans l'métro"]
-        adem_str = [ 'adem', "à demain dans l'train", "à demain Vince", "bonne soirée Vince" ]
-        wuik_str = [ "Bon week-end Vince.", "bon wuik", "à lundi" ]
-        hour=int(datetime.now().strftime('%H'))
-        day=int(datetime.now().strftime('%u'))
-        if hour > 15 and day < 6:
-            if re.search("Vince", mess.getFrom().__str__(), re.IGNORECASE) or re.search("bebel", mess.getFrom().__str__(), re.IGNORECASE):
-                time.sleep(4*random.random())
-                if day < 5:
-                    self.send_simple_reply(mess,random.choice(bye_str + adem_str))
-                elif day == 5:
-                    self.send_simple_reply(mess,random.choice(bye_str + wuik_str))
+        if not re.search("/%s$" % self.nickname, mess.getFrom().__str__(), re.IGNORECASE):
+            # this is not a message from myself
+
+            if re.search("^choub: [!@#%]", message, re.IGNORECASE):
+                # call choub !
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, random.choice(self.choub_str));
+                return
+
+            if re.search("^%s:? " % self.nickname, message, re.IGNORECASE):
+                # someone talks to me...
+                time.sleep(3*random.random())
+                self.send_simple_reply(mess, random.choice(self.direct_str));
+                return
+
+            self.msg_count += 1
+            if self.msg_count >= self.random:
+                self.msg_count = 0
+                self.random = random.randint(1, 100)
+                time.sleep(3*random.random())
+                self.send_simple_reply(mess,random.choice(self.all_str))
                 return
     
         if self.direct_message_re.match(message):
@@ -139,6 +161,6 @@ if __name__ == '__main__':
         server = '192.168.1.1'
         port = 5222
 
-    mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False)
+    mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname)
     mucbot.muc_join_room(chatroom, nickname)
     mucbot.serve_forever()
