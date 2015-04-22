@@ -48,12 +48,13 @@ class MUCJabberBot(JabberBot):
 
         random.seed()
         self.msg_count = 0
+        self.go_mode = False
         self.random = random.randint(1, self.rnd_max)
         self.ok_str = ["c'est pas faux", "ok", "c'est pas con", "j'suis pour", "moi aussi !", "kler.", "grav'", "+1", "je bois les mots à tes lèvres tel cendrillon la sève au gland du prince charmant" ]
         self.nok_str = ["j'peux pas te laisser dire ça", "FOUTAISES !", "mais c'est n'importe quoi !!!", "tu dis que d'la merde toi !", "sans moi", "weekly...", "peux pas, j'ai poney"]
         self.insult_str = ["oh putain mais ta gueule !", "salope, salope, salope !", "ducon !", "et dans l'cul la balayette !", "t'es vraiment trop con toi !", "RTFM !"]
 	self.other_str = [ "pause !", "choub:!!!!", "mais qu'est-ce qu'on fout là ?", "j'suis putain de las !", "on va au resto ?", "sérieux ?", "la loose...", "rheuuuuuuuuuuuu", "et ben on est pas rendu avec ça !"]
-        self.direct_str = [ "ben chais pas", "parles-moi pas toi !", "kestuveux ?!", "vas-y lache moi", "putain, j'dormais...", "pffff ! mais qu'est-ce j'en sais moi ?!" ]
+        self.direct_str = [ "ben chais pas", "parles-moi pas toi !", "kestuveux ?!", "vas-y lâche-moi !", "putain, j'dormais...", "pffff ! mais qu'est-ce j'en sais moi ?!" ]
         self.choub_str = ["choub: !!!!!!!", "choub: !$%#+@", "choub: bordel !" ]
         self.procedures_str = ["putain, mais on chie sur les procedures là !!!", "pffffff !!!", "ok, mais on timeout à 30 alors !!!" ]
         self.all_str = self.ok_str + self.nok_str + self.insult_str + self.other_str
@@ -69,6 +70,14 @@ class MUCJabberBot(JabberBot):
 
         if not re.search("/%s$" % self.nickname, mess.getFrom().__str__(), re.IGNORECASE):
             # this is not a message from myself
+
+            if re.search("^go$", message, re.IGNORECASE) and not self.go_mode:
+                time.sleep(3*random.random())
+                self.send_simple_reply(mess, "go")
+                self.go_mode = True
+                return
+
+            self.go_mode = False
 
             if re.search("^choub: [!@#%]", message, re.IGNORECASE):
                 # call choub !
