@@ -50,6 +50,7 @@ class MUCJabberBot(JabberBot):
         random.seed()
         self.msg_count = 0
         self.go_mode = False
+        self.yo_mode = False
         self.random = random.randint(1, self.rnd_max)
         self.ok_str = [ \
                 "c'est pas faux", \
@@ -115,6 +116,12 @@ class MUCJabberBot(JabberBot):
                 "pffffff !!!", \
                 "ok, mais on timeout à 30 alors !!!", \
                 "Nan, c'est maintenant ! benoît: go" ]
+        self.yo_str = [ \
+                "yo", \
+                "salut", \
+                "salut salut", \
+                "bonjour", \
+                "bonjour bonjour", ]
         self.all_str = self.ok_str + self.nok_str + self.insult_str + self.other_str
 
     def callback_message(self, conn, mess):
@@ -133,9 +140,16 @@ class MUCJabberBot(JabberBot):
                 time.sleep(3*random.random())
                 self.send_simple_reply(mess, "go")
                 self.go_mode = True
+                self.yo_mode = False
                 return
-
             self.go_mode = False
+
+            if not self.yo_mode and message.lower() in self.yo_str:
+                time.sleep(3*random.random())
+                self.send_simple_reply(mess, random.choice(self.yo_str))
+                self.yo_mode = True
+                return
+            self.yo_mode = False
 
             if re.search("^choub: [!@#%]", message, re.IGNORECASE):
                 # call choub !
