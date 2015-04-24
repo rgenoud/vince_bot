@@ -86,10 +86,13 @@ class MUCJabberBot(JabberBot):
                 "pause !", \
                 "mais qu'est-ce qu'on fout là ?", \
                 "j'suis putain de las !", \
+                "/me se fait chier", \
+                "/me est las", \
                 "on va au resto ?", \
                 "rheuuuuuuuuuuuu", \
                 "j'me fais chier grave", \
                 "...", \
+                "pffffffff", \
                 "quelqu'un à LA réponse ?", \
                 "pfffff ! j'ai pas l'goût !" ]
         self.direct_str = [ \
