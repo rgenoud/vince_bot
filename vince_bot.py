@@ -108,11 +108,14 @@ class MUCJabberBot(JabberBot):
                 "Parle à ma main !", \
                 "qui me parle ?", \
                 "toi-même !", \
+                "cébon! ça va, j'ai compris.", \
+                "roger.", \
+                "lapin cômpri", \
                 "cestcuiquiditquiyest !", \
                 "miroir incassable !", \
                 "Wouhaa ! mais c'est génial !", \
                 "Putain, c'est trop d'la balle", \
-                "et tu me déranges pour me dire ça ? Ben tu ferais mieux de retourner shaper un coup !", \
+                "c'est quoi la question ?", \
                 "je bois les mots à tes lèvres tel cendrillon la sève au gland du prince charmant", \
                 "<Abraham Simpson>Faut que j'aille prendre mes médicaments</Abraham Simpson>", \
                 "Je ne pine rien à ce que tu me bave" ]
