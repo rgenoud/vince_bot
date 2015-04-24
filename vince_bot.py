@@ -18,6 +18,7 @@ import random
 import time
 import re
 import sys
+import subprocess
 
 class MUCJabberBot(JabberBot):
 
@@ -210,8 +211,13 @@ class Example(MUCJabberBot):
         uptime = open('/proc/uptime', 'r')
         uptime_seconds = float(uptime.readline().split()[0])
         uptime_string = str(timedelta(seconds = uptime_seconds))
-
         return '%s' % ( uptime_string, )
+
+    @botcmd
+    def blague(self, mess, args):
+        """Tells a joke in french"""
+        result = subprocess.check_output("$HOME/bin/blague.sh",shell=True)
+        return '%s' % (result, )
     
 if __name__ == '__main__':
 
