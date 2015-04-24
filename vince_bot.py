@@ -91,6 +91,7 @@ class MUCJabberBot(JabberBot):
                 "on va au resto ?", \
                 "rheuuuuuuuuuuuu", \
                 "j'me fais chier grave", \
+                "c'est calme ici...", \
                 "...", \
                 "pffffffff", \
                 "quelqu'un à LA réponse ?", \
@@ -135,7 +136,7 @@ class MUCJabberBot(JabberBot):
                 "salut salut", \
                 "bonjour", \
                 "bonjour bonjour", ]
-        self.all_str = self.ok_str + self.nok_str + self.insult_str + self.other_str
+        self.all_str = self.ok_str + self.nok_str + self.insult_str
 
     def callback_message(self, conn, mess):
         ''' Changes the behaviour of the JabberBot in order to allow
