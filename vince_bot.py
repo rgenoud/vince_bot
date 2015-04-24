@@ -19,6 +19,7 @@ import time
 import re
 import sys
 import subprocess
+import threading
 
 class MUCJabberBot(JabberBot):
 
@@ -48,6 +49,8 @@ class MUCJabberBot(JabberBot):
                 % (user, domain))
 
         random.seed()
+        self.t = threading.Timer(random.randint(30,60) * 60.0, self.say_smthg)
+        self.t.start()
         self.msg_count = 0
         self.go_mode = False
         self.yo_mode = False
@@ -60,8 +63,8 @@ class MUCJabberBot(JabberBot):
                 "moi aussi !", \
                 "kler.", \
                 "grav'", \
-                "+1", \
-                "je bois les mots à tes lèvres tel cendrillon la sève au gland du prince charmant" ]
+                "sérieux ?", \
+                "+1" ]
         self.nok_str = [ \
                 "j'peux pas te laisser dire ça", \
                 "FOUTAISES !", \
@@ -69,6 +72,8 @@ class MUCJabberBot(JabberBot):
                 "tu dis que d'la merde toi !", \
                 "sans moi", \
                 "weekly...", \
+                "la loose...", \
+                "et ben on est pas rendu avec ça !", \
                 "peux pas, j'ai poney"]
         self.insult_str = [ \
                 "oh putain mais ta gueule !", \
@@ -82,10 +87,11 @@ class MUCJabberBot(JabberBot):
                 "mais qu'est-ce qu'on fout là ?", \
                 "j'suis putain de las !", \
                 "on va au resto ?", \
-                "sérieux ?", \
-                "la loose...", \
                 "rheuuuuuuuuuuuu", \
-                "et ben on est pas rendu avec ça !" ]
+                "j'me fais chier grave", \
+                "...", \
+                "quelqu'un à LA réponse ?", \
+                "pfffff ! j'ai pas l'goût !" ]
         self.direct_str = [ \
                 "ben chais pas", \
                 "parles-moi pas toi !", \
@@ -99,7 +105,7 @@ class MUCJabberBot(JabberBot):
                 "Parle à ma main !", \
                 "qui me parle ?", \
                 "toi-même !", \
-                "cestcuiquiditquilest !", \
+                "cestcuiquiditquiyest !", \
                 "miroir incassable !", \
                 "Wouhaa ! mais c'est génial !", \
                 "Putain, c'est trop d'la balle", \
@@ -114,6 +120,7 @@ class MUCJabberBot(JabberBot):
         self.procedures_str = [ \
                 "putain, mais on chie sur les procedures là !!!", \
                 "pffffff !!!", \
+                "franchement, c'est abusé !", \
                 "ok, mais on timeout à 30 alors !!!", \
                 "Nan, c'est maintenant ! benoît: go" ]
         self.yo_str = [ \
@@ -132,6 +139,10 @@ class MUCJabberBot(JabberBot):
         message = mess.getBody()
         if not message:
             return
+
+        self.t.cancel()
+        self.t = threading.Timer(random.randint(30,60) * 60.0, self.say_smthg)
+        self.t.start()
 
         if not re.search("/%s$" % self.nickname, mess.getFrom().__str__(), re.IGNORECASE):
             # this is not a message from myself
@@ -182,6 +193,8 @@ class MUCJabberBot(JabberBot):
         elif not self.only_direct:
             return super(MUCJabberBot, self).callback_message(conn, mess)
 
+    def say_smthg(self):
+        self.send_message(random.choice(self.other_str))
 
 class Example(MUCJabberBot):
 
