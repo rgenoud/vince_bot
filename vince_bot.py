@@ -50,7 +50,7 @@ class MUCJabberBot(JabberBot):
 
         random.seed()
         self.started_at = time.time()
-        self.t = threading.Timer(random.randint(30,60) * 60.0, self.say_smthg)
+        self.t = threading.Timer(random.randint(15,60) * 60.0, self.say_smthg)
         self.t.start()
         self.msg_count = 0
         self.go_mode = False
@@ -148,13 +148,17 @@ class MUCJabberBot(JabberBot):
         if (time.time() - self.started_at) < 2:
             return
 
+        self.last_message = mess
         message = mess.getBody()
         if not message:
             return
 
         self.t.cancel()
-        self.t = threading.Timer(random.randint(30,60) * 60.0, self.say_smthg)
+        self.timer_val = random.randint(15,60) * 60.0
+        self.t = threading.Timer(self.timer_val, self.say_smthg)
         self.t.start()
+        print time.ctime()
+        print "next in %d sec" % self.timer_val
 
         if not re.search("/%s$" % self.nickname, mess.getFrom().__str__(), re.IGNORECASE):
             # this is not a message from myself
@@ -210,7 +214,9 @@ class MUCJabberBot(JabberBot):
             return super(MUCJabberBot, self).callback_message(conn, mess)
 
     def say_smthg(self):
-        self.send_message(random.choice(self.other_str))
+        # can send directly to a chatroom instead:
+        # http://stackoverflow.com/questions/3528373/how-to-create-muc-and-send-messages-to-existing-muc-using-python-and-xmpp
+        self.send_simple_reply(self.last_message,random.choice(self.other_str))
 
 class Example(MUCJabberBot):
 
