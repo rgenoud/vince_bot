@@ -159,19 +159,23 @@ class MUCJabberBot(JabberBot):
         if not re.search("/%s$" % self.nickname, mess.getFrom().__str__(), re.IGNORECASE):
             # this is not a message from myself
 
-            if re.search("^go$", message, re.IGNORECASE) and not self.go_mode:
-                time.sleep(3*random.random())
-                self.send_simple_reply(mess, "go")
+            if message == "go":
+                if not self.go_mode:
+                    time.sleep(3*random.random())
+                    self.send_simple_reply(mess, "go")
                 self.go_mode = True
                 self.yo_mode = False
                 return
+
             self.go_mode = False
 
-            if not self.yo_mode and message.lower() in self.yo_str:
-                time.sleep(3*random.random())
-                self.send_simple_reply(mess, random.choice(self.yo_str))
+            if message.lower() in self.yo_str:
+                if not self.yo_mode:
+                    time.sleep(3*random.random())
+                    self.send_simple_reply(mess, random.choice(self.yo_str))
                 self.yo_mode = True
                 return
+
             self.yo_mode = False
 
             if re.search("^choub: [!@#%]", message, re.IGNORECASE):
