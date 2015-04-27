@@ -49,6 +49,7 @@ class MUCJabberBot(JabberBot):
                 % (user, domain))
 
         random.seed()
+        self.started_at = time.time()
         self.t = threading.Timer(random.randint(30,60) * 60.0, self.say_smthg)
         self.t.start()
         self.msg_count = 0
@@ -142,6 +143,10 @@ class MUCJabberBot(JabberBot):
         ''' Changes the behaviour of the JabberBot in order to allow
         it to answer direct messages. This is used often when it is
         connected in MUCs (multiple users chatroom). '''
+
+        # discards the server backlog
+        if (time.time() - self.started_at) < 2:
+            return
 
         message = mess.getBody()
         if not message:
