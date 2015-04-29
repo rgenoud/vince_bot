@@ -52,6 +52,7 @@ class MUCJabberBot(JabberBot):
         random.seed()
         self.started_at = time.time()
         self.t = threading.Timer(random.randint(15,60) * 60.0, self.say_smthg)
+        self.t.daemon = True
         self.t.start()
         self.msg_count = 0
         self.go_mode = False
@@ -157,6 +158,7 @@ class MUCJabberBot(JabberBot):
         self.t.cancel()
         self.timer_val = random.randint(15,60) * 60.0
         self.t = threading.Timer(self.timer_val, self.say_smthg)
+        self.t.daemon = True
         self.t.start()
         print time.ctime()
         print "next in %d sec" % self.timer_val
