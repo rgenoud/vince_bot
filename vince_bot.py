@@ -20,6 +20,7 @@ import re
 import sys
 import subprocess
 import threading
+import codecs
 
 class MUCJabberBot(JabberBot):
 
@@ -267,7 +268,11 @@ class Example(MUCJabberBot):
         """Tells a joke in french"""
         result = subprocess.check_output("$HOME/bin/blague.sh",shell=True)
         return '%s' % (result, )
-    
+
+def convert_handler(err):
+    end = err.end
+    return (u' ', end)
+
 if __name__ == '__main__':
 
     backup = 0
@@ -289,6 +294,8 @@ if __name__ == '__main__':
         chatroom = 'botroom@conference.myserver'
         server = '192.168.1.1'
         port = 5222
+
+    codecs.register_error('strict', convert_handler)
 
     mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname, rnd_max=25)
     mucbot.muc_join_room(chatroom, nickname)
