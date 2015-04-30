@@ -33,10 +33,12 @@ class MUCJabberBot(JabberBot):
         # answer only direct messages or not?
         self.only_direct = kwargs.get('only_direct', False)
         self.nickname = kwargs.get('nickname', 'bob')
+        self.chatroom = kwargs.get('chatroom', None)
         self.rnd_max = kwargs.get('rnd_max', 25)
         try:
             del kwargs['only_direct']
             del kwargs['nickname']
+            del kwargs['chatroom']
             del kwargs['rnd_max']
         except KeyError:
             pass
@@ -147,7 +149,7 @@ class MUCJabberBot(JabberBot):
         connected in MUCs (multiple users chatroom). '''
 
         # discards the server backlog
-        if (time.time() - self.started_at) < 2:
+        if (time.time() - self.started_at) < 4:
             return
 
         self.last_message = mess
@@ -156,7 +158,7 @@ class MUCJabberBot(JabberBot):
             return
 
         self.t.cancel()
-        self.timer_val = random.randint(15,60) * 60.0
+        self.timer_val = random.randint(20,60) * 60.0
         self.t = threading.Timer(self.timer_val, self.say_smthg)
         self.t.daemon = True
         self.t.start()
@@ -219,6 +221,8 @@ class MUCJabberBot(JabberBot):
     def say_smthg(self):
         # can send directly to a chatroom instead:
         # http://stackoverflow.com/questions/3528373/how-to-create-muc-and-send-messages-to-existing-muc-using-python-and-xmpp
+        if self.chatroom != None:
+            mucbot.muc_join_room(self.chatroom, self.nickname)
         self.send_simple_reply(self.last_message,random.choice(self.other_str))
 
 class Example(MUCJabberBot):
@@ -275,6 +279,9 @@ def convert_handler(err):
     end = err.end
     return (u' ', end)
 
+def get_out():
+    quit()
+
 if __name__ == '__main__':
 
     backup = 0
@@ -299,6 +306,6 @@ if __name__ == '__main__':
 
     codecs.register_error('strict', convert_handler)
 
-    mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname, rnd_max=25)
+    mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname, chatroom=chatroom, rnd_max=25)
     mucbot.muc_join_room(chatroom, nickname)
-    mucbot.serve_forever()
+    mucbot.serve_forever(disconnect_callback=get_out)
