@@ -124,7 +124,7 @@ class MUCJabberBot(JabberBot):
                 "c'est quoi la question ?", \
                 "je bois les mots à tes lèvres tel cendrillon la sève au gland du prince charmant", \
                 "<Abraham Simpson>Faut que j'aille prendre mes médicaments</Abraham Simpson>", \
-                "Je ne pine rien à ce que tu me bave" ]
+                "Je ne pine rien à ce que tu me baves" ]
         self.choub_str = [ \
                 "choub: !!!!!!!", \
                 "choub: !$%#+@", \
