@@ -99,7 +99,7 @@ class MUCJabberBot(JabberBot):
                 "c'est calme ici...", \
                 "...", \
                 "pffffffff", \
-                "quelqu'un à LA réponse ?", \
+                "quelqu'un a LA réponse ?", \
                 "pfffff ! j'ai pas l'goût !" ]
         self.direct_str = [ \
                 "ben chais pas", \
