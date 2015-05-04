@@ -280,6 +280,7 @@ def convert_handler(err):
     return (u' ', end)
 
 def get_out():
+    print "bye bye"
     quit()
 
 if __name__ == '__main__':
