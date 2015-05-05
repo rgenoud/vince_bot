@@ -138,6 +138,7 @@ class MUCJabberBot(JabberBot):
         self.yo_str = [ \
                 "yo", \
                 "salut", \
+                "plop", \
                 "salut salut", \
                 "bonjour", \
                 "bonjour bonjour", ]
