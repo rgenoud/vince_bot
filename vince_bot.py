@@ -269,6 +269,10 @@ def convert_handler(err):
     end = err.end
     return (u' ', end)
 
+def get_out():
+    print "bye bye"
+    quit()
+
 if __name__ == '__main__':
 
     backup = 0
@@ -295,4 +299,4 @@ if __name__ == '__main__':
 
     mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname, chatroom=chatroom, rnd_max=25)
     mucbot.muc_join_room(chatroom, nickname)
-    mucbot.serve_forever()
+    mucbot.serve_forever(disconnect_callback=get_out)
