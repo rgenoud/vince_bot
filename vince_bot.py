@@ -55,6 +55,7 @@ class MUCJabberBot(JabberBot):
 
         random.seed()
         self.started_at = time.time()
+        self.reconnect_muc()
         self.t = threading.Timer(random.randint(15,60) * 60.0, self.say_smthg)
         self.t.daemon = True
         self.t.start()
@@ -227,6 +228,13 @@ class MUCJabberBot(JabberBot):
         if self.chatroom != None:
             mucbot.muc_join_room(self.chatroom, self.nickname)
         self.send_simple_reply(self.last_message,random.choice(self.other_str))
+
+    def reconnect_muc(self):
+        if self.chatroom != None:
+            self.muc_join_room(self.chatroom, self.nickname)
+            self.muc_ping_timer = threading.Timer(5, self.reconnect_muc)
+            self.muc_ping_timer.daemon = True
+            self.muc_ping_timer.start()
 
 class Example(MUCJabberBot):
 
