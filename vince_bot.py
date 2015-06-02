@@ -35,6 +35,8 @@ class MUCJabberBot(JabberBot):
         self.nickname = kwargs.get('nickname', 'bob')
         self.chatroom = kwargs.get('chatroom', None)
         self.rnd_max = kwargs.get('rnd_max', 25)
+        # ping the server every 5 seconds
+        self.PING_FREQUENCY = 5
         try:
             del kwargs['only_direct']
             del kwargs['nickname']
