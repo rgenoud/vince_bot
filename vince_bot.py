@@ -226,7 +226,7 @@ class MUCJabberBot(JabberBot):
         # can send directly to a chatroom instead:
         # http://stackoverflow.com/questions/3528373/how-to-create-muc-and-send-messages-to-existing-muc-using-python-and-xmpp
         if self.chatroom != None:
-            mucbot.muc_join_room(self.chatroom, self.nickname)
+            self.muc_join_room(self.chatroom, self.nickname)
         self.send_simple_reply(self.last_message,random.choice(self.other_str))
 
     def reconnect_muc(self):
