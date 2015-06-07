@@ -21,6 +21,7 @@ import sys
 import subprocess
 import threading
 import codecs
+import ConfigParser
 
 class MUCJabberBot(JabberBot):
 
@@ -296,28 +297,23 @@ def get_out():
 
 if __name__ == '__main__':
 
-    backup = 0
-    """If we have arguments, switch to backup"""
-    if len(sys.argv) > 1:
-        backup = 1
+    if len(sys.argv) != 2:
+        print "Usage: %s configuration_file" % sys.argv[0]
+        quit()
 
-    if backup == 1:
-        username = 'bot@serverjabber.com'
-        password = 'xxxxxxxxxxxxxxxx'
-        nickname = 'bob'
-        chatroom = 'botroom@conference.serverjabber.com'
-        server = 'serverjabber.com'
-        port = 5222
-    else:
-        username = 'bot@myserver'
-        password = 'xxxxxxxxxxxxxxx'
-        nickname = 'bob'
-        chatroom = 'botroom@conference.myserver'
-        server = '192.168.1.1'
-        port = 5222
+    config = ConfigParser.RawConfigParser()
+
+    config.read(sys.argv[1])
+    username = config.get('credentials', 'username')
+    password = config.get('credentials', 'password')
+    nickname = config.get('credentials', 'nickname')
+    hostname = config.get('server', 'hostname')
+    port = config.getint('server', 'port')
+    chatroom = config.get('server', 'chatroom')
 
     codecs.register_error('strict', convert_handler)
 
-    mucbot = Example(username, password, None, False, False, False, None, '', server, port, only_direct=False, nickname=nickname, chatroom=chatroom, rnd_max=25)
+    mucbot = Example(username, password, None, False, False, False, None, '',
+                     hostname, port, only_direct=False, nickname=nickname, chatroom=chatroom, rnd_max=25)
     mucbot.muc_join_room(chatroom, nickname)
     mucbot.serve_forever(disconnect_callback=get_out)
