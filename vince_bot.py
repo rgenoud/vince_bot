@@ -73,6 +73,7 @@ class MUCJabberBot(JabberBot):
                 "kler.", \
                 "grav'", \
                 "sérieux ?", \
+                "arf.", \
                 "+1" ]
         self.nok_str = [ \
                 "j'peux pas te laisser dire ça", \
