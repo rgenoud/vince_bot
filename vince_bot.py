@@ -74,7 +74,13 @@ class MUCJabberBot(JabberBot):
                 "grav'", \
                 "sérieux ?", \
                 "arf.", \
+                "putain, c'est pas passé loin.", \
                 "+1" ]
+        self.elec_str = [ \
+                "et t'as essayé avec une capa de charge ?", \
+                "tu le monte en darlington et ça passe !", \
+                "mais n'imp' ! Fais un push-pull plutôt !", \
+                "Il manque une diode de roue-libre !" ]
         self.nok_str = [ \
                 "j'peux pas te laisser dire ça", \
                 "FOUTAISES !", \
@@ -147,7 +153,7 @@ class MUCJabberBot(JabberBot):
                 "salut salut", \
                 "bonjour", \
                 "bonjour bonjour", ]
-        self.all_str = self.ok_str + self.nok_str + self.insult_str
+        self.all_str = self.ok_str + self.nok_str + self.insult_str + self.elec_str
 
     def callback_message(self, conn, mess):
         ''' Changes the behaviour of the JabberBot in order to allow
