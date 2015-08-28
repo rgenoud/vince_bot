@@ -78,7 +78,7 @@ class MUCJabberBot(JabberBot):
                 "+1" ]
         self.elec_str = [ \
                 "et t'as essayé avec une capa de charge ?", \
-                "tu le monte en darlington et ça passe !", \
+                "tu le montes en darlington et ça passe !", \
                 "mais n'imp' ! Fais un push-pull plutôt !", \
                 "Il manque une diode de roue-libre !" ]
         self.nok_str = [ \
