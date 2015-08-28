@@ -103,6 +103,8 @@ class MUCJabberBot(JabberBot):
                 "mais qu'est-ce qu'on fout là ?", \
                 "j'suis putain de las !", \
                 "/me se fait chier", \
+                "c'est qui qu'a pété ?", \
+                "je viens de poser une bonne pêche, ça fait du bien.", \
                 "/me est las", \
                 "on va au resto ?", \
                 "rheuuuuuuuuuuuu", \
@@ -110,6 +112,7 @@ class MUCJabberBot(JabberBot):
                 "c'est calme ici...", \
                 "...", \
                 "pffffffff", \
+                "j'ai faim", \
                 "quelqu'un a LA réponse ?", \
                 "pfffff ! j'ai pas l'goût !" ]
         self.direct_str = [ \
