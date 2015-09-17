@@ -155,6 +155,8 @@ class MUCJabberBot(JabberBot):
                 "plop", \
                 "salut salut", \
                 "bonjour", \
+                "'lut", \
+                "hello", \
                 "bonjour bonjour", ]
         self.all_str = self.ok_str + self.nok_str + self.insult_str + self.elec_str
 
