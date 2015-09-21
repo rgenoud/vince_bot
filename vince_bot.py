@@ -240,7 +240,10 @@ class MUCJabberBot(JabberBot):
         # http://stackoverflow.com/questions/3528373/how-to-create-muc-and-send-messages-to-existing-muc-using-python-and-xmpp
         if self.chatroom != None:
             self.muc_join_room(self.chatroom, self.nickname)
-        self.send_simple_reply(self.last_message,random.choice(self.other_str))
+        hour=int(datetime.now().strftime('%H'))
+        day=int(datetime.now().strftime('%u'))
+        if hour > 8 and day < 6 and hour < 19:
+            self.send_simple_reply(self.last_message,random.choice(self.other_str))
 
     def reconnect_muc(self):
         if self.chatroom != None:
