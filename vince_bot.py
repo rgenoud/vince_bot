@@ -104,6 +104,7 @@ class MUCJabberBot(JabberBot):
                 "j'suis putain de las !", \
                 "/me se fait chier", \
                 "c'est qui qu'a pété ?", \
+                "arf... j'crois que j'ai craqué mon slip...", \
                 "je viens de poser une bonne pêche, ça fait du bien.", \
                 "/me est las", \
                 "on va au resto ?", \
