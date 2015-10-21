@@ -189,7 +189,7 @@ class MUCJabberBot(JabberBot):
             if message == "go":
                 if not self.go_mode:
                     time.sleep(3*random.random())
-                    self.send_simple_reply(mess, "go")
+                    self.send_simple_reply(mess, post_msg_hook("go"))
                 self.go_mode = True
                 self.yo_mode = False
                 return
@@ -199,7 +199,7 @@ class MUCJabberBot(JabberBot):
             if message.lower() in self.yo_str:
                 if not self.yo_mode:
                     time.sleep(3*random.random())
-                    self.send_simple_reply(mess, random.choice(self.yo_str))
+                    self.send_simple_reply(mess, post_msg_hook(random.choice(self.yo_str)))
                 self.yo_mode = True
                 return
 
@@ -208,18 +208,18 @@ class MUCJabberBot(JabberBot):
             if re.search("^choub: [!@#%]", message, re.IGNORECASE):
                 # call choub !
                 time.sleep(2*random.random())
-                self.send_simple_reply(mess, random.choice(self.choub_str));
+                self.send_simple_reply(mess, post_msg_hook(random.choice(self.choub_str)));
                 return
 
             if re.search("^2s$", message, re.IGNORECASE):
                 time.sleep(2*random.random())
-                self.send_simple_reply(mess, random.choice(self.procedures_str));
+                self.send_simple_reply(mess, post_msg_hook(random.choice(self.procedures_str)));
                 return
 
             if re.search("^%s:? " % self.nickname, message, re.IGNORECASE):
                 # someone talks to me...
                 time.sleep(3*random.random())
-                self.send_simple_reply(mess, random.choice(self.direct_str));
+                self.send_simple_reply(mess, post_msg_hook(random.choice(self.direct_str)));
                 return
 
             self.msg_count += 1
@@ -227,7 +227,7 @@ class MUCJabberBot(JabberBot):
                 self.msg_count = 0
                 self.random = random.randint(1, self.rnd_max)
                 time.sleep(3*random.random())
-                self.send_simple_reply(mess,random.choice(self.all_str))
+                self.send_simple_reply(mess,post_msg_hook(random.choice(self.all_str)))
                 return
     
         if self.direct_message_re.match(message):
@@ -244,7 +244,7 @@ class MUCJabberBot(JabberBot):
         hour=int(datetime.now().strftime('%H'))
         day=int(datetime.now().strftime('%u'))
         if hour > 8 and day < 6 and hour < 19:
-            self.send_simple_reply(self.last_message,random.choice(self.other_str))
+            self.send_simple_reply(self.last_message,post_msg_hook(random.choice(self.other_str)))
 
     def reconnect_muc(self):
         if self.chatroom != None:
@@ -266,7 +266,7 @@ class Example(MUCJabberBot):
         version = open('/proc/version').read().strip()
         loadavg = open('/proc/loadavg').read().strip()
 
-        return '%s\n\n%s' % ( version, loadavg, )
+        return post_msg_hook('%s\n\n%s' % ( version, loadavg, ))
     
     @botcmd
     def time( self, mess, args):
@@ -276,7 +276,7 @@ class Example(MUCJabberBot):
     @botcmd
     def rot13( self, mess, args):
         """Returns passed arguments rot13'ed"""
-        return args.encode('rot13')
+        return post_msg_hook(args.encode('rot13'))
 
     @botcmd
     def whoami(self, mess, args):
@@ -287,21 +287,27 @@ class Example(MUCJabberBot):
     def cpuinfo( self, mess, args):
         """Displays information about the cpu"""
         cpuinfo = open('/proc/cpuinfo').read().strip()
-        return '%s' % ( cpuinfo, )
+        return post_msg_hook('%s' % ( cpuinfo, ))
     
     @botcmd
     def uptime( self, mess, args):
-        """Displays information about the cpu"""
+        """Displays server uptime"""
         uptime = open('/proc/uptime', 'r')
         uptime_seconds = float(uptime.readline().split()[0])
         uptime_string = str(timedelta(seconds = uptime_seconds))
-        return '%s' % ( uptime_string, )
+        return post_msg_hook('%s' % ( uptime_string, ))
 
     @botcmd
     def blague(self, mess, args):
         """Tells a joke in french"""
         result = subprocess.check_output("$HOME/bin/blague.sh",shell=True)
-        return '%s' % (result, )
+        return post_msg_hook('%s' % (result, ))
+
+def post_msg_hook(message_string):
+    # capslock day
+    if datetime.now().strftime('%d-%m') == "22-10":
+        return message_string.upper()
+    return message_string
 
 def convert_handler(err):
     end = err.end
