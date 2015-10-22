@@ -191,7 +191,7 @@ class MUCJabberBot(JabberBot):
         if not re.search("/%s$" % self.nickname, mess.getFrom().__str__(), re.IGNORECASE):
             # this is not a message from myself
 
-            if message == "go":
+            if message.lower() == "go":
                 if not self.go_mode:
                     time.sleep(3*random.random())
                     self.send_simple_reply(mess, post_msg_hook("go"))
