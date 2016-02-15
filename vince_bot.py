@@ -162,9 +162,10 @@ class MUCJabberBot(JabberBot):
         self.all_str = self.ok_str + self.nok_str + self.insult_str + self.elec_str
         self.bye_str = ["ciao", "tcho", "a+", "à plus dans l'bus", "bye",
                         "salut", "à c'tantot dans l'métro"]
-        adem_str = [ 'adem', "à demain dans l'train", "à demain",
+        self.adem_str = [ 'adem', "à demain dans l'train", "à demain",
                     "bonne soirée" ]
-        wuik_str = [ "Bon week-end", "bon wuik", "à lundi" ]
+        self.wuik_str = [ "Bon week-end", "bon wuik", "à lundi" ]
+        self.adem_pattern = "(?:^[a|à] ?dem.*)|(?:^tcho$)|(?:^bon ?w.*)|(?:^bonne soir[ée]e)|(?:\\bcassos\\b)"
 
     def callback_message(self, conn, mess):
         ''' Changes the behaviour of the JabberBot in order to allow
@@ -218,16 +219,14 @@ class MUCJabberBot(JabberBot):
                 self.send_simple_reply(mess, post_msg_hook(random.choice(self.choub_str)));
                 return
 
-            # TODO
-            #if re.search("vince", mess.getFrom().__str__(), re.IGNORECASE) or re.search("bebel", mess.getFrom().__str__(), re.IGNORECASE):
             if hour > 15:
-                if re.search("^TODO$", message, re.IGNORECASE):
+                if re.search(self.adem_pattern, message, re.IGNORECASE):
+                    time.sleep(3*random.random())
                     if day < 5:
-                        time.sleep(4*random.random())
-                        self.send_simple_reply(mess,random.choice(bye_str + adem_str) . " " . mess.getFrom().__str__())
+                        self.send_simple_reply(mess,random.choice(self.bye_str + self.adem_str) . " " . mess.getFrom().__str__())
                         return
                     elif day == 5:
-                        self.send_simple_reply(mess,random.choice(bye_str + wuik_str) . " " .  mess.getFrom().__str__())
+                        self.send_simple_reply(mess,random.choice(self.bye_str + self.wuik_str) . " " .  mess.getFrom().__str__())
                         return
 
             if re.search("(?:^[0-9]+ ?s$)|(?:^[0-9]+ ?min.*)", message, re.IGNORECASE):
