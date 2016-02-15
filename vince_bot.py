@@ -223,10 +223,10 @@ class MUCJabberBot(JabberBot):
                 if re.search(self.adem_pattern, message, re.IGNORECASE):
                     time.sleep(3*random.random())
                     if day < 5:
-                        self.send_simple_reply(mess,random.choice(self.bye_str + self.adem_str) . " " . mess.getFrom().__str__())
+                        self.send_simple_reply(mess,random.choice(self.bye_str + self.adem_str))
                         return
                     elif day == 5:
-                        self.send_simple_reply(mess,random.choice(self.bye_str + self.wuik_str) . " " .  mess.getFrom().__str__())
+                        self.send_simple_reply(mess,random.choice(self.bye_str + self.wuik_str))
                         return
 
             if re.search("(?:^[0-9]+ ?s$)|(?:^[0-9]+ ?min.*)", message, re.IGNORECASE):
