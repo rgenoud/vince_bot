@@ -187,6 +187,8 @@ class MUCJabberBot(JabberBot):
         self.t.start()
         print time.ctime()
         print "next in %d sec" % self.timer_val
+        hour=int(datetime.now().strftime('%H'))
+        day=int(datetime.now().strftime('%u'))
 
         if not re.search("/%s$" % self.nickname, mess.getFrom().__str__(), re.IGNORECASE):
             # this is not a message from myself
@@ -218,8 +220,6 @@ class MUCJabberBot(JabberBot):
 
             # TODO
             #if re.search("vince", mess.getFrom().__str__(), re.IGNORECASE) or re.search("bebel", mess.getFrom().__str__(), re.IGNORECASE):
-            hour=int(datetime.now().strftime('%H'))
-            day=int(datetime.now().strftime('%u'))
             if hour > 15:
                 if re.search("^TODO$", message, re.IGNORECASE):
                     if day < 5:
@@ -260,8 +260,6 @@ class MUCJabberBot(JabberBot):
         # http://stackoverflow.com/questions/3528373/how-to-create-muc-and-send-messages-to-existing-muc-using-python-and-xmpp
         if self.chatroom != None:
             self.muc_join_room(self.chatroom, self.nickname)
-        hour=int(datetime.now().strftime('%H'))
-        day=int(datetime.now().strftime('%u'))
         if hour > 8 and day < 6 and hour < 19:
             self.send_simple_reply(self.last_message,post_msg_hook(random.choice(self.other_str)))
 
