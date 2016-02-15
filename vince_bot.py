@@ -230,7 +230,7 @@ class MUCJabberBot(JabberBot):
                         self.send_simple_reply(mess,random.choice(bye_str + wuik_str) . " " .  mess.getFrom().__str__())
                         return
 
-            if re.search("^2s$", message, re.IGNORECASE):
+            if re.search("(?:^[0-9]+ ?s$)|(?:^[0-9]+ ?min.*)", message, re.IGNORECASE):
                 time.sleep(2*random.random())
                 self.send_simple_reply(mess, post_msg_hook(random.choice(self.procedures_str)));
                 return
