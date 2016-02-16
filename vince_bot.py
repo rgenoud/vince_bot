@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# Code based on an example from python-jabberbot:
+#
 # Copyright (C) 2010 Arthur Furlan <afurlan@afurlan.org>
 # 
 # This program is free software; you can redistribute it and/or modify
