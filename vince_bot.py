@@ -245,10 +245,10 @@ class MUCJabberBot(JabberBot):
 
                     time.sleep(3*random.random())
                     if day < 5:
-                        self.send_simple_reply(mess,post_msg_hook(random.choice(self.bye_str + self.adem_str) + pseudo))
+                        self.send_simple_reply(mess, post_msg_hook(random.choice(self.bye_str + self.adem_str) + pseudo.__str__()))
                         return
                     elif day == 5:
-                        self.send_simple_reply(mess,post_msg_hook(random.choice(self.bye_str + self.wuik_str) + pseudo))
+                        self.send_simple_reply(mess, post_msg_hook(random.choice(self.bye_str + self.wuik_str) + pseudo.__str__()))
                         return
 
             if re.search("(?:^[0-9]+ ?s$)|(?:^[0-9]+ ?min.*)", message, re.IGNORECASE):
