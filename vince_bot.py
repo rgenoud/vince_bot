@@ -221,6 +221,21 @@ class MUCJabberBot(JabberBot):
                 self.send_simple_reply(mess, post_msg_hook(random.choice(self.choub_str)));
                 return
 
+            if re.search("^coin ?!", message, re.IGNORECASE):
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, post_msg_hook("pan !"));
+                return
+
+            if re.search("^can ?!", message, re.IGNORECASE):
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, post_msg_hook("poin !"));
+                return
+
+            if re.search("^poin ?!", message, re.IGNORECASE):
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, post_msg_hook("can !"));
+                return
+
             if hour > 15:
                 if re.search(self.adem_pattern, message, re.IGNORECASE):
                     m = re.search("[^/]+$", mess.getFrom().__str__(), 0)
