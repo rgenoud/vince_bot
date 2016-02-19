@@ -167,7 +167,7 @@ class MUCJabberBot(JabberBot):
         self.adem_str = [ 'adem', "à demain dans l'train", "à demain",
                     "bonne soirée" ]
         self.wuik_str = [ "Bon week-end", "bon wuik", "à lundi" ]
-        self.adem_pattern = ur"(?:^(a|à) ?dem.*)|(?:^tcho$)|(?:^bon ?w.*)|(?:^bonne soir(é|e)e)|(?:\\bcassos\\b)"
+        self.adem_pattern = ur"(?:^(a|à) ?dem.*)|(?:^tcho$)|(?:^bon ?w.*)|(?:^bonne soir(é|e)e)|(?:\\bcassos\\b)|(?:^bon ?w)"
 
     def callback_message(self, conn, mess):
         ''' Changes the behaviour of the JabberBot in order to allow
