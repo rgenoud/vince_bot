@@ -170,6 +170,24 @@ class MUCJabberBot(JabberBot):
                     "bonne soirée" ]
         self.wuik_str = [ "Bon week-end", "bon wuik", "à lundi" ]
         self.adem_pattern = ur"(?:^(a|à) ?dem.*)|(?:^tcho$)|(?:^bon ?w.*)|(?:^bonne soir(é|e)e)|(?:\\bcassos\\b)|(?:^bon ?w)"
+        self.blagues_math = [ \
+                             "Quelle est la différence entre toi et la lumière ?\nLa lumière c'est un photon.", \
+                             "Pourquoi 0 perd-t-il toujours ses débats ?\nIl n'a pas d'argument", \
+                             "F et F' sont sur un yacht. F tombe à l'eau, que fait F' ?\nIl dérive.", \
+                             "x² va se promener dans la forêt. Quand il ressort, il s'est transformé en x, pourquoi ?\nIl s'est pris une racine", \
+                             "Un atome réconforte son ami qui a récemment perdu un électron :\nC'est pas grave t'inquiète reste positif !", \
+                             "Dans quoi boit-on une super-soupe ?\nDans un(e) Hyperbol(e)", \
+                             "Combien faut-il de mathématiciens constructivistes pour changer une ampoule ?\nAucun. Ils ne croient pas au rotations infinitésimales.", \
+                             "Sur Terre, il y a trois sortes de personnes: celles qui savent compter et celles qui ne savent pas.", \
+                             "Un romain entre dans un bar.\nIl lève deux doigts et dit « 5 bières s’il vous plait ! ».", \
+                             "Dans un bar, un serveur dit « désolé, nous ne servons pas les particules plus rapides que la lumière ici. ».\nUn tachyon entre dans le bar.", \
+                             "Logarithme et exponentiel sont au supermarché, ils arrivent à la caisse, qui règle la note ?\nExponentiel, car logarithme ne paie rien", \
+                             "Que dit un homme complexe à une femme réelle ?\nViens danser !", \
+                             "Que dit Pythagore quand il veut aller promener son chien ?\n\"Médor, va chercher Thalès !\"", \
+                             "Le sexe, c'est un peu comme les équations.\nA partir de 3 inconnues ça devient intéressant.", \
+                             "Qu'est-ce qu'un ours polaire ?\nUn ours cartésien qui a changé de coordonnées", \
+                             "Un professeur de chimie inscrit la formule HN03 sur le tableau. Il interroge ensuite un élève :\n- Que signifie cette formule jeune homme ?\n- Heu, je l'ai sur le bout de la langue, Monsieur !\n- Ouh là là, crachez-la vite, c'est de l'acide nitrique !", \
+                            ]
 
     def callback_message(self, conn, mess):
         ''' Changes the behaviour of the JabberBot in order to allow
