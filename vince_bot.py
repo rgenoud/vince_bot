@@ -128,6 +128,7 @@ class MUCJabberBot(JabberBot):
                 "pffff ! mais qu'est-ce j'en sais moi ?!", \
                 "honnêtement, je m'en bats les couilles.", \
                 "qu'est-ce que tu veux que ça me fasse ?", \
+                "et qu'est-ce tu veux que j'te dise ?", \
                 "t'sais quoi ? ça m'en touche une sans faire bouger l'autre !", \
                 "Parle à ma main !", \
                 "qui me parle ?", \
