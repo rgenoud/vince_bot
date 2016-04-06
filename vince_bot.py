@@ -92,6 +92,7 @@ class MUCJabberBot(JabberBot):
                 "sans moi", \
                 "weekly...", \
                 "la loose...", \
+                "tu t'es relu quand t'as bu ?", \
                 "et ben on est pas rendu avec ça !", \
                 "peux pas, j'ai poney"]
         self.insult_str = [ \
@@ -115,6 +116,7 @@ class MUCJabberBot(JabberBot):
                 "j'me fais chier grave", \
                 "c'est calme ici...", \
                 "...", \
+                "c'est beau une ville la nuit.", \
                 "pffffffff", \
                 "j'ai faim", \
                 "quelqu'un a LA réponse ?", \
