@@ -363,6 +363,12 @@ class Example(MUCJabberBot):
         result = subprocess.check_output("$HOME/bin/blague.sh",shell=True)
         return post_msg_hook('%s' % (result, ))
 
+    @botcmd
+    def spoon(self, mess, args):
+        """spoonerism in french (contrepeterie)"""
+        result = subprocess.check_output("$HOME/bin/contrepeterie.sh",shell=True)
+        return post_msg_hook('%s' % (result, ))
+
 def post_msg_hook(message_string):
     # capslock day
     if datetime.now().strftime('%d-%m') == "22-10":
