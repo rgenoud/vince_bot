@@ -82,6 +82,7 @@ class MUCJabberBot(JabberBot):
                 "et t'as essayé avec une capa de charge ?", \
                 "tu le montes en darlington et ça passe !", \
                 "mais n'imp' ! Fais un push-pull plutôt !", \
+                "t'as qu'à winker !", \
                 "n'oublie pas la diode d'inversion de polarité !", \
                 "Il manque une diode de roue-libre !" ]
         self.nok_str = [ \
