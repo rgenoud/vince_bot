@@ -151,6 +151,15 @@ class MUCJabberBot(JabberBot):
                 "choub: !!!!!!!", \
                 "choub: !$%#+@", \
                 "choub: bordel !" ]
+        self.cedric_str = [ \
+                "cedric: !!!!!!!", \
+                "cedric: !$%#+@", \
+                "pffffffff ! cedric !!!", \
+                "et qui c'est qu'on attend ?! cedric !!!", \
+                "toujours le même qu'on attend !", \
+                "putain ! cedric!!! ", \
+                "cedric: c'est pas le moment de shaper !!!! ", \
+                "cedric: bordel !"]
         self.procedures_str = [ \
                 "putain, mais on chie sur les procedures là !!!", \
                 "pffffff !!!", \
@@ -242,6 +251,12 @@ class MUCJabberBot(JabberBot):
                 # call choub !
                 time.sleep(2*random.random())
                 self.send_simple_reply(mess, post_msg_hook(random.choice(self.choub_str)));
+                return
+
+            if re.search("^cedric: [!@#%]", message, re.IGNORECASE):
+                # call cedric !
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, post_msg_hook(random.choice(self.cedric_str)));
                 return
 
             if re.search("^coin ?!", message, re.IGNORECASE):
