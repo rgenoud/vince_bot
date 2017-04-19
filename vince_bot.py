@@ -274,6 +274,11 @@ class MUCJabberBot(JabberBot):
                 self.send_simple_reply(mess, post_msg_hook("can !"));
                 return
 
+            if re.search("fillon", message, re.IGNORECASE):
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, post_msg_hook("ET ALORS ?!"));
+                return
+
             if hour > 15:
                 if re.search(self.adem_pattern, message, re.IGNORECASE):
                     m = re.search("[^/]+$", mess.getFrom().__str__(), 0)
