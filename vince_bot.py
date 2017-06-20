@@ -294,7 +294,7 @@ class MUCJabberBot(JabberBot):
                         self.send_simple_reply(mess, post_msg_hook(random.choice(self.bye_str + self.wuik_str) + pseudo.__str__()))
                         return
 
-            if re.search("(?:^[0-9]+ ?s$)|(?:^[0-9]+ ?min.*)", message, re.IGNORECASE):
+            if re.search("(?:^[0-9]+ ?s$)|(?:^[0-9]+ ?min.*)|(^h[0-9]+)", message, re.IGNORECASE):
                 time.sleep(2*random.random())
                 self.send_simple_reply(mess, post_msg_hook(random.choice(self.procedures_str)));
                 return
