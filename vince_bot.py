@@ -322,13 +322,14 @@ class MUCJabberBot(JabberBot):
     def say_smthg(self):
         # can send directly to a chatroom instead:
         # http://stackoverflow.com/questions/3528373/how-to-create-muc-and-send-messages-to-existing-muc-using-python-and-xmpp
-        if self.chatroom != None:
+        if self.chatroom is not None:
             self.muc_join_room(self.chatroom, self.nickname)
+        hour=int(datetime.now().strftime('%H'))
         if hour > 8 and day < 6 and hour < 19:
             self.send_simple_reply(self.last_message,post_msg_hook(random.choice(self.other_str)))
 
     def reconnect_muc(self):
-        if self.chatroom != None:
+        if self.chatroom is not None:
             self.muc_join_room(self.chatroom, self.nickname)
             self.muc_ping_timer = threading.Timer(5, self.reconnect_muc)
             self.muc_ping_timer.daemon = True
