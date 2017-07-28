@@ -76,6 +76,7 @@ class MUCJabberBot(JabberBot):
                 "grav'", \
                 "sérieux ?", \
                 "arf.", \
+                "et c'est bien légitime.", \
                 "putain, c'est pas passé loin.", \
                 "+1" ]
         self.elec_str = [ \
