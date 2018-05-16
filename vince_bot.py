@@ -148,10 +148,15 @@ class MUCJabberBot(JabberBot):
                 "je bois les mots à tes lèvres tel cendrillon la sève au gland du prince charmant", \
                 "<Abraham Simpson>Faut que j'aille prendre mes médicaments</Abraham Simpson>", \
                 "Je ne pine rien à ce que tu me baves" ]
-        self.choub_str = [ \
-                "choub: !!!!!!!", \
-                "choub: !$%#+@", \
-                "choub: bordel !" ]
+        self.lolo_str = [ \
+                "lolo: !!!!!!!", \
+                "lolo: !$%#+@", \
+                "pffffffff ! lolo !!!", \
+                "et qui c'est qu'on attend ?! lolo !!!", \
+                "toujours la même qu'on attend !", \
+                "putain ! lolo !!! ", \
+                "lolo: c'est pas le moment de shaper !!!! ", \
+                "lolo: bordel !" ]
         self.cedric_str = [ \
                 "cedric: !!!!!!!", \
                 "cedric: !$%#+@", \
@@ -248,10 +253,10 @@ class MUCJabberBot(JabberBot):
 
             self.yo_mode = False
 
-            if re.search("^choub: [!@#%]", message, re.IGNORECASE):
-                # call choub !
+            if re.search("^lolo: [!@#%]", message, re.IGNORECASE):
+                # call lolo !
                 time.sleep(2*random.random())
-                self.send_simple_reply(mess, post_msg_hook(random.choice(self.choub_str)));
+                self.send_simple_reply(mess, post_msg_hook(random.choice(self.lolo_str)));
                 return
 
             if re.search("^cedric: [!@#%]", message, re.IGNORECASE):
