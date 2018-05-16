@@ -275,6 +275,11 @@ class MUCJabberBot(JabberBot):
                 self.send_simple_reply(mess, post_msg_hook("poin !"));
                 return
 
+            if re.search("^pan ?!", message, re.IGNORECASE):
+                time.sleep(2*random.random())
+                self.send_simple_reply(mess, post_msg_hook("coin !"));
+                return
+
             if re.search("^poin ?!", message, re.IGNORECASE):
                 time.sleep(2*random.random())
                 self.send_simple_reply(mess, post_msg_hook("can !"));
