@@ -1,1 +1,0 @@
-jabberbot-ced566275aa51b4a60f12ceddbaaef9bcc5c68f0.py
